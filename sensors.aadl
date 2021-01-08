@@ -1,0 +1,10 @@
+package sensors
+public 
+-- declaration des fichiers sous-
+-- system de du package
+	with task_types;	
+	with ires;
+	with yaw_gyro;
+	with dss;
+
+

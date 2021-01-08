@@ -1,0 +1,27 @@
+package thread_types
+public
+
+-- Types of tasks 
+
+thread passive
+properties
+  Dispatch_Protocol => Aperiodic;
+end passive;
+
+thread cyclic
+properties
+  Dispatch_Protocol => Periodic;
+end cyclic;
+
+
+thread sporadic
+properties
+  Dispatch_Protocol => Sporadic;
+end sporadic;
+
+thread protected
+end protected;
+
+end thread_types;
+
+
