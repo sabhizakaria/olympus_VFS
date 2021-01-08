@@ -3,7 +3,7 @@ public
 
 -- Types of tasks 
 
-thread passive
+thread passive -- Is it really necesseary ?
 properties
   Dispatch_Protocol => Aperiodic;
 end passive;
@@ -19,7 +19,7 @@ properties
   Dispatch_Protocol => Sporadic;
 end sporadic;
 
-thread protected
+thread protected -- features ? properties ?
 end protected;
 
 end thread_types;
