@@ -1,0 +1,18 @@
+package interface
+public 
+-- declaration des fichiers sous-
+-- system de du package
+	with task_types;	
+	with telemetry;
+
+process implementation telecomand_process.impl
+subcomponents
+  -- Nouveau thread sporadic
+  telecomand : thread thread_types::sporadic
+  {
+    Compute_Execution_Time => 2.5 ms;
+    --Period =>  ms;
+    Deadline => 187 ms;
+    Priority => 4 ms
+   }
+

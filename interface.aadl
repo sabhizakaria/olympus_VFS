@@ -1,8 +1,0 @@
-package interface
-public 
--- declaration des fichiers sous-
--- system de du package
-	with task_types;	
-	with telemetry;
-
-

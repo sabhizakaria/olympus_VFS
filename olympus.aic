@@ -1,0 +1,20 @@
+<PROJECT>
+  <AADL path="olympus.aadl" enabled="false" opened="true"/>
+  <AADL path="common/task_types.aadl" enabled="true" opened="true"/>
+
+  <AADL path="bus_io/bus_io.aadl" enabled="false" opened="true"/>
+
+  <AADL path="controller/controller.aadl" enabled="false" opened="true"/>
+
+  <AADL path="controller/sensors/sensors.aadl" enabled="true" opened="true"/>
+  <AADL path="controller/sensors/ires/ires.aadl" enabled="true" opened="true"/>
+  <AADL path="controller/sensors/yaw_gyro/yaw_gyro.aadl" enabled="true" opened="true"/>
+  <AADL path="controller/sensors/dss/dss.aadl" enabled="true" opened="true"/>
+
+  <AADL path="controller/control_law/control_law.aadl" enabled="true" opened="true"/>
+
+  <AADL path="controller/actuators/actuators.aadl" enabled="true" opened="true"/>
+  <AADL path="controller/actuators/reaction_wheel/reaction_wheel.aadl" enabled="true" opened="true"/>
+
+  <AADL path="interface/interface.aadl" enabled="false" opened="true"/>
+</PROJECT>
