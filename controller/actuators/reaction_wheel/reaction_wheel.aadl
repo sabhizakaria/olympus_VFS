@@ -2,7 +2,37 @@ package reaction_wheel
 public 
 -- declaration des fichiers sous-
 -- system de du package
-	with task_types;	
+	with task_types;
+--	with weel_demand;	
+	
 	
 
+process reaction_wheels_process
+features
+  input : in data port task_types::shared_data;
+  output : out data port task_types::shared_data;
+end reaction_wheels_process;
+
+process implementation reaction_wheels_process.impl
+subcomponents
+
+  -- Should protected object be considred ? 
+
+  request_wheel_speed : thread task_types::cyclic
+  {
+    Compute_Execution_Time => 1.43 ms; 
+    Period => 200 ms;  
+    Priority => 18;
+    Deadline => 22 ms;  
+    Dispatch_offset => 0 ms;  
+  };
+connections
+-- if protected oobject are considred as task ==> add connection with them 
+  C0 : port request_wheel_speed.output -> output;
+
+properties
+  timing => immediate applies to C0;
+end reaction_wheels_process.impl;
+
+end reaction_wheels;
 

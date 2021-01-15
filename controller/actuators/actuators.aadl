@@ -5,4 +5,36 @@ public
 	with task_types;	
 	with reaction_wheel;
 
+process actuators
+features
+	input : in data port task_types::shared_data;
+ 	output : out data port task_types::shared_data;
+end actuators_process;
+
+process implementation actuators_process.impl
+subcomponents
+
+  -- New instance of the process of reaction_wheels
+  reaction_wheels : process reaction_wheels::reaction_wheels_process;
+  -- How to handle protected object?
+  -- Nouveau thread cyclic
+  command_actuators : thread task_types::cyclic
+  {
+    Compute_Execution_Time => 2.13 ms; 
+    Period => 200 ms;   
+    Priority => 20;
+    Deadline => 14 ms;  
+    Dispatch_offset => 50 ms; 
+  };
+connections 
+  -- connexion with reaction wheel  
+  C0 : port command_actuators.output -> reaction_wheels_t.input;
+  -- connexion with telemetry
+  C1 : port reaction_wheels_t.output -> output;
+  -- should protected object be considered ? 
+properties
+  timing => immediate applies to C0, C1;
+end actuators_process.impl;
+
+end actuators;
 

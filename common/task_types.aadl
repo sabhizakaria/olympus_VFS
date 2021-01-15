@@ -1,6 +1,10 @@
 package thread_types
 public
 
+-- Types of data
+data shared_data
+end shared_data;
+
 -- Types of tasks 
 
 thread passive -- Is it really necesseary ?
@@ -23,5 +27,6 @@ thread protected -- features ? properties ?
 end protected;
 
 end thread_types;
+
 
 
