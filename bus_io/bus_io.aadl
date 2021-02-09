@@ -1,4 +1,4 @@
-package bus_I_O
+package bus_io
 public 
 -- declaration des fichiers sous-
 -- system de du package
@@ -9,4 +9,6 @@ features
 	input : in data port task_types::shared_data;
 	output : in data port task_types::shared_data;
 end communication_process;
+
+end bus_io;
 

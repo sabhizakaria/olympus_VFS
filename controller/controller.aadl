@@ -14,5 +14,7 @@ features
 	output : requires bus access task_types::serial_bus;
 end controller_process;
 
+end controller;
+
 
 

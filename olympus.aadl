@@ -5,22 +5,10 @@ public
 	with task_types;	
 	with controller;
 	with interface;
-	with bus_io;
+	
 
 
----------------
--- Bus--------
----------------
 
-bus serial_bus
-features 
-	output : requires bus access serial_bus;
-properties
-	Compute_Execution_Time => 0.395 ms;
- 	Priority => 22;
-    	Concurrency_Control_Protocol => Priority_Ceiling;
-
-end serial_bus;
 
 
 ---------------
@@ -60,8 +48,8 @@ connections
 	C6 : port telecommand_task.output -> telemetry_task.input;
 	C7 : port controller_task.output -> telemetry_task.input;
 
-	B1 : bus access controller_task.output -> serial_bus.output; 
-	B2 : bus access telemetry_task.output -> serial_bus.output; 	
+	B1 : provides bus access controller_task.output -> serial_bus.output; 
+	B2 : provides bus access telemetry_task.output -> serial_bus.output; 	
 	
 
 properties 
@@ -95,5 +83,6 @@ PROPERTIES
   Actual_Processor_Binding => ( reference(my_platform) ) applies to main;
 
 end control_olymp.impl
+
 
 

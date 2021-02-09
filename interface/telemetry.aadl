@@ -4,38 +4,60 @@ public
 -- system de du package
 	with task_types;	
 
+thread data_store
+features
+  input : in data port task_types::shared_data;
+  output : out data port task_types::shared_data;
+properties
+  dispatch_Protocol => Aperiodic;
+  compute_Execution_Time => 1.37 ms;
+  Priority => 24;
+end data_store;
 
+thread echo_error
 
+features
+  input : in data port task_types::shared_data;
+  output : out data port task_types::shared_data;
+properties
+  dispatch_Protocol => Aperiodic;
+  ompute_Execution_Time => 0.30 ms;
+  Priority => 25;
+end echo_error;
 
 process telemetry_process
 features
 	input : in data port task_types::shared_data;
- 	output : requires bus access task_types::serial_bus;
 end telemetry_process;
 
 process implementation telemetry_process.impl
 subcomponents
-  serial_bus 	     : bus task_types::serial_bus.impl;
+  a_data 	         : data task_types::shared_data.impl;
+  data_store 		   : thread data_store;
+  echo_error	      : thread echo_error;
   
   telemetry_response : thread task_types::sporadic
   {
     Compute_Execution_Time => 3.19 ms;
     Period => 62.5 ms;
     Deadline => 30 ms;
-    Priority => 15 ms
+    Priority => 15 ms;
     
-   }
+   };
 
 connections
-  C0 : port input -> telemetry_response.input;
-  C1 : port telemetry_response.output -> serial_bus.output;
+  C0 : port a_data -> input;
+  C1 : port input -> data_store.input;
+  C2 : port input -> echo_error.input;
+  C3 : port data_store.output    -> echo_error.input;
 
 properties
-  Timing => immediate applies to C0, C1; 
+  Timing => immediate applies to C0, C1, C2, C3; 
 
 end telecomand_process.impl;
 
 
 end telemetry;
+
 
 

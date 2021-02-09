@@ -2,25 +2,27 @@ package control_law
 public 
 -- declaration des fichiers sous-
 -- system de du package
-	with task_types;	
-process control_law
- input : in data port task_types::shared_data;
- output : out data port task_types::shared_data;
-end control_law
+   with task_types;	
 
--- Shoudl Passive tasks be implemented?
-  -- if yes then add more connections 
+process control_law
+features 
+  input : in data port task_types::shared_data;
+  output : out data port task_types::shared_data;
+end control_law;
+
+
 process implementation control_law.impl
  subcomponents
-  -- Nouveau thread periodic
+ 
+  a_data : data task_types::shared_data.impl;
   c_law : thread task_types::cyclic
   {
     Compute_Execution_Time => 52.8 ms;
     Period          => 200 ms;
     Deadline        => 200 ms;
-    Priority        => 8 ms;
-    Dispatch_Offset => 50 ms
-  }
+    Priority        => 8 ms;  
+  };
+
 connections
    
   C0 : port input -> control.input;
@@ -36,6 +38,7 @@ properties
 end control_law_process.impl;
 
 end control_law;
+
 
 
 

@@ -11,3 +11,6 @@ features
 	output : in data port task_types::shared_data;
 end ires_process;
 
+end ires;
+
+

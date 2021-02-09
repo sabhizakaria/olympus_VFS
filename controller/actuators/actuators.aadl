@@ -16,8 +16,7 @@ subcomponents
 
   -- New instance of the process of reaction_wheels
   reaction_wheels : process reaction_wheels::reaction_wheels_process;
-  -- How to handle protected object?
-  -- Nouveau thread cyclic
+  
   command_actuators : thread task_types::cyclic
   {
     Compute_Execution_Time => 2.13 ms; 
@@ -37,5 +36,6 @@ properties
 end actuators_process.impl;
 
 end actuators;
+
 
 

@@ -10,4 +10,5 @@ features
 	output : in data port task_types::shared_data;
 end gyro_process;
 
+end yaw_gyro;
 
