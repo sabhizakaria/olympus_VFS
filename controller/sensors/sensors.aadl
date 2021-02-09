@@ -7,4 +7,10 @@ public
 	with yaw_gyro;
 	with dss;
 
+process sensor_process
+features
+	input : in data port task_types::shared_data;
+	output : in data port task_types::shared_data;
+end sensor_process;
+
 

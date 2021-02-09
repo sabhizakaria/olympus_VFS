@@ -5,7 +5,7 @@ public
 	with task_types;	
 	with reaction_wheel;
 
-process actuators
+process actuators_process
 features
 	input : in data port task_types::shared_data;
  	output : out data port task_types::shared_data;
@@ -37,4 +37,5 @@ properties
 end actuators_process.impl;
 
 end actuators;
+
 

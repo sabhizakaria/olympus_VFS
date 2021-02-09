@@ -1,32 +1,42 @@
 package thread_types
 public
 
--- Types of data
+-- Types of data / ressources
 data shared_data
-end shared_data;
+end  shared_data;
+
+data implementation shared_data.impl
+end shared_data.impl;
+
+
+
+
 
 -- Types of tasks 
 
-thread passive -- Is it really necesseary ?
+thread passive 
 properties
-  Dispatch_Protocol => Aperiodic;
+  	Dispatch_Protocol => Aperiodic;
 end passive;
 
 thread cyclic
 properties
-  Dispatch_Protocol => Periodic;
+  	Dispatch_Protocol => Periodic;
 end cyclic;
 
 
 thread sporadic
+features
+  input : in data port my_data;
+  output : out data port my_data;
 properties
-  Dispatch_Protocol => Sporadic;
+  	Dispatch_Protocol => Sporadic;
 end sporadic;
 
-thread protected -- features ? properties ?
-end protected;
+
 
 end thread_types;
+
 
 
 

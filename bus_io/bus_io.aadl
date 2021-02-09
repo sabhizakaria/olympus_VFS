@@ -3,5 +3,10 @@ public
 -- declaration des fichiers sous-
 -- system de du package
 	with task_types;	
-	
+
+process communication_process
+features
+	input : in data port task_types::shared_data;
+	output : in data port task_types::shared_data;
+end communication_process;
 

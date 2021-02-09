@@ -1,0 +1,41 @@
+package telemetry
+public 
+-- declaration des fichiers sous-
+-- system de du package
+	with task_types;	
+
+
+
+
+process telemetry_process
+features
+	input : in data port task_types::shared_data;
+ 	output : requires bus access task_types::serial_bus;
+end telemetry_process;
+
+process implementation telemetry_process.impl
+subcomponents
+  serial_bus 	     : bus task_types::serial_bus.impl;
+  
+  telemetry_response : thread task_types::sporadic
+  {
+    Compute_Execution_Time => 3.19 ms;
+    Period => 62.5 ms;
+    Deadline => 30 ms;
+    Priority => 15 ms
+    
+   }
+
+connections
+  C0 : port input -> telemetry_response.input;
+  C1 : port telemetry_response.output -> serial_bus.output;
+
+properties
+  Timing => immediate applies to C0, C1; 
+
+end telecomand_process.impl;
+
+
+end telemetry;
+
+

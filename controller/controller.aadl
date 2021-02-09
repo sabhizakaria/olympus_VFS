@@ -3,8 +3,16 @@ public
 -- declaration des fichiers sous-
 -- system de du package
 	with task_types;	
+	with bus_io; 
 	with sensors;
 	with control_law;
 	with actuators;
+
+process controller_process
+features
+	input : in data port task_types::shared_data;
+	output : requires bus access task_types::serial_bus;
+end controller_process;
+
 
 

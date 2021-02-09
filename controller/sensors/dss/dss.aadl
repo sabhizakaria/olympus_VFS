@@ -3,6 +3,13 @@ public
 -- declaration des fichiers sous-
 -- system de du package
 	with task_types;	
-	
+
+
+process dss_process
+features
+	input : in data port task_types::shared_data;
+	output : in data port task_types::shared_data;
+end dss_process;
+
 
 

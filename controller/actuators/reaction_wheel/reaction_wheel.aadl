@@ -16,7 +16,6 @@ end reaction_wheels_process;
 process implementation reaction_wheels_process.impl
 subcomponents
 
-  -- Should protected object be considred ? 
 
   request_wheel_speed : thread task_types::cyclic
   {
@@ -35,4 +34,5 @@ properties
 end reaction_wheels_process.impl;
 
 end reaction_wheels;
+
 
