@@ -11,13 +11,35 @@ features
  	output : out data port task_types::shared_data;
 end actuators_process;
 
+
+thread cyclic
+features
+	input : in data port task_types::shared_data;
+ 	output : out data port task_types::shared_data;
+properties
+  	Dispatch_Protocol => Periodic;
+end cyclic;
+
+thread thruster
+
+features
+  input : in data port task_types::shared_data;
+  output : out data port task_types::shared_data;
+properties
+  dispatch_Protocol => Aperiodic;
+  ompute_Execution_Time => 0.78 ms;
+  Priority => 21;
+end thruster;
+
+
 process implementation actuators_process.impl
 subcomponents
 
   -- New instance of the process of reaction_wheels
-  reaction_wheels : process reaction_wheels::reaction_wheels_process;
-  
-  command_actuators : thread task_types::cyclic
+  reaction_wheels : process reaction_wheels::reaction_wheels_process.impl;
+  t_thruster		  : thread thruster;
+  command_actuators : thread cyclic
+ 
   {
     Compute_Execution_Time => 2.13 ms; 
     Period => 200 ms;   
@@ -25,10 +47,12 @@ subcomponents
     Deadline => 14 ms;  
     Dispatch_offset => 50 ms; 
   };
+
 connections 
-  -- connexion with reaction wheel  
-  C0 : port command_actuators.output -> reaction_wheels_t.input;
-  -- connexion with telemetry
+  
+  C0 : port input -> t_thruster.input;
+  C1 : port command_actuators.output -> t_thruster.input;
+  C2 : port command_actuators.output -> reaction_wheels_t.input;
   C1 : port reaction_wheels_t.output -> output;
 
 properties
@@ -36,6 +60,7 @@ properties
 end actuators_process.impl;
 
 end actuators;
+
 
 
 

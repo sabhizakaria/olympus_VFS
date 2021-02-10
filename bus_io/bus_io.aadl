@@ -10,10 +10,22 @@ features
 	output : in data port task_types::shared_data;
 end receive_from_bus;
 
+thread bus_fifo_ip
+features
+  input : in data port task_types::shared_data;
+  output : out data port task_types::shared_data;
+properties
+  dispatch_Protocol => Aperiodic;
+  ompute_Execution_Time => 0.06 ms;
+  Priority => 36;
+end bus_fifo_ip;
+
+
 process implementation receive_from_bus.impl
 subcomponents
-	a_data : data task_types::shared_data;
-	bus_ip_fifo : bus task_types:serial_bus;
+	--a_data : data task_types::shared_data;
+	t_bus_fifo : thread bus_fifo_ip;
+	bus_fifo : bus task_types:bus_ip_fifo;
 	bus_interrupt : thread task_types:sporadic 
 	 {
 		Compute_Execution_Time => 0.18 ms; 
@@ -22,7 +34,7 @@ subcomponents
     		Deadline => 0.63 ms;  
     		
 	 };
-	read_bus_ip : thread task_types:cyclic;
+	read_bus_ip : thread task_types:cyclic
 	{
 		Compute_Execution_Time => 1.76 ms; 
     		Period => 10 ms;  
@@ -32,20 +44,25 @@ subcomponents
 	};
 connections
 
-	C0 : a_data -> input;
+	
 	C1 : input -> read_bus_ip.input;
 	C2 : input -> bus_interrupt.input;
-	C3 : read_bus_ip.output -> output;
+	C3 : read_bus_ip.output -> t_bus_fifo.input;
+	C4 : bus_interrupt.output -> t_bus_fifo.input;
+	C6 : read_bus_ip.output -> output;
 	
-	B1 : requires bus access read_bus_ip.output -> serial_bus.input;
-	B2 : requires bus access bus_interrupt -> serial_bus.input;
+
+	B1 : requires bus access t_bus_fifo.output -> bus_fifo.input;
+	
 
 properties
-	immediate applies to C1, C2, C3, B1, B2;
+	immediate applies to C1, C2, C3, C4, C5, C6, B1;
 
 end receive_from_bus.impl;
 
 
 end bus_io;
+
+
 
 

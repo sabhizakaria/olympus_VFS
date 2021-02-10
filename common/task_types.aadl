@@ -12,6 +12,15 @@ end shared_data.impl;
 ---------------
 -- Bus--------
 ---------------
+bus bus_ip_fifo
+features 
+	input : provides bus access bus_ip_fifo;
+properties
+	Compute_Execution_Time => 0.06 ms;
+ 	Priority => 36;
+    	Concurrency_Control_Protocol => Priority_Ceiling;
+
+end bus_ip_fifo;
 
 bus serial_bus
 features 
@@ -23,6 +32,15 @@ properties
 
 end serial_bus;
 
+bus serial_bus_ip
+features 
+	input : provides bus access serial_bus;
+properties
+	Compute_Execution_Time => 0.58 ms;
+ 	Priority => 24;
+    	Concurrency_Control_Protocol => Priority_Ceiling;
+
+end serial_bus_ip;
 
 
 -- Types of tasks 
@@ -37,6 +55,7 @@ properties
 end cyclic;
 
 
+
 thread sporadic
 features
 	input : in data port task_types::shared_data;
@@ -48,6 +67,8 @@ end sporadic;
 
 
 end thread_types;
+
+
 
 
 

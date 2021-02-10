@@ -28,7 +28,7 @@ end echo_error;
 process telemetry_process
 features
 	input : in data port task_types::shared_data;
-	output : 
+	output : out data port task_types::shared_data;
 end telemetry_process;
 
 process implementation telemetry_process.impl
@@ -59,6 +59,7 @@ end telecomand_process.impl;
 
 
 end telemetry;
+
 
 
 

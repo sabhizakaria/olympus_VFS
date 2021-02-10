@@ -10,7 +10,7 @@ features
   output : out data port task_types::shared_data;
 properties
   dispatch_Protocol => Aperiodic;
-  compute_Execution_Time => 0,67 ms;
+  Compute_Execution_Time => 0.67 ms;
   Priority => 7;
 end angle;
 
@@ -42,7 +42,8 @@ subcomponents
 
 	};
 
-connection
+connections
+	
 	C0 : port process_dss_data.output -> dss_angle.input; 
 	C1 : port request_dss_data.output -> output;
 	C2 : port process_dss_data.output -> output;
@@ -55,6 +56,7 @@ properties
 end dss_process.impl;
 
 end dss;
+
 
 
 

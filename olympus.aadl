@@ -8,9 +8,6 @@ public
 	
 
 
-
-
-
 ---------------
 -- Process-----
 ---------------
@@ -27,12 +24,25 @@ features
 	input : in data port task_types::shared_data;
 end control_software;
 
+thread serial_bus_op
+
+features
+  input : in data port task_types::shared_data;
+  output : out data port task_types::shared_data;
+properties
+  dispatch_Protocol => Aperiodic;
+  ompute_Execution_Time => 0.06 ms;
+  Priority => 36;
+end serial_bus_op;
+
+
 
 
 process implementation control_software.impl       
 subcomponents
 	a_data		 : data	   task_types::shared_data.impl
-	serial_bus 	     : bus task_types::serial_bus.impl;
+	serial_bus 	     : bus task_types::serial_bus;
+	t_serial_bus_op	 : thread serial_bus_op;
 	controller_task  : process controller::controller_process;
 	telecommand_task : process interface::telecomand_process;
 	telemetry_task   : process interface::telemetry_process;
@@ -46,13 +56,14 @@ connections
 	C5 : port telecommand_task.output -> controller_task.input; 
 	C6 : port telecommand_task.output -> telemetry_task.input;
 	C7 : port controller_task.output -> telemetry_task.input;
+	C8 : port controller_task.output -> t_serial_bus_op.input; 
+	C9 : port telemetry_task.output -> t_serial_bus_op.input;
 
-	B1 : requires bus access controller_task.output -> serial_bus.input; 
-	B2 : requires bus access telemetry_task.output -> serial_bus.input; 	
+	B1 : requires bus access t_serial_bus_op.output -> serial_bus.input; 
 	
 
 properties 
- 	Timing => immediate applies to C1, C2, C3, C4, C5, C6, C7, B1, B2;
+ 	Timing => immediate applies to C1, C2, C3, C4, C5, C6, C7, C8, C9, B1;
 end control_software.impl;
 
 
@@ -82,6 +93,7 @@ PROPERTIES
   Actual_Processor_Binding => ( reference(my_platform) ) applies to main;
 
 end control_olymp.impl
+
 
 
 

@@ -7,13 +7,44 @@ public
 	with yaw_gyro;
 	with dss;
 
+
+
+thread attitude
+features
+  input : in data port task_types::shared_data;
+  output : out data port task_types::shared_data;
+properties
+  dispatch_Protocol => Aperiodic;
+  ompute_Execution_Time => 0.52 ms;
+  Priority => 16;
+end attitude;
+
 process sensor_process
 features
 	input : in data port task_types::shared_data;
 	output : in data port task_types::shared_data;
 end sensor_process;
 
+process implementation sensor_process.impl
+subcomponents 
+	ires : process ires::ires_process.impl;
+	yaw_gyro: process yaw_gyro::gyro_process.impl;
+	dss: process dss::dss_process.impl;
+	t_attitude: thread attitude;
+
+connections
+
+	C0 : port input -> yaw_gyro.input;
+	C1 : port yaw_gyro.output -> dss.input;
+	C2 : port yaw_gyro.output -> t_attitude.input;
+	C3 : port ires.output -> t_attitude.input;
+	C4 : port dss.output -> output;
+	C5 : port ires.output -> output;	
+	
+end sensor_process.impl;
+
 end sensors;
+
 
 
 

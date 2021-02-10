@@ -20,9 +20,9 @@ features
 	output : in data port task_types::shared_data;
 end gyro_process;
 
-process implementation gyro_process
+process implementation gyro_process.impl
 subcomponents 
-	a_data		 : data	   task_types::shared_data.impl
+	a_data		 : data	   task_types::shared_data.impl;
 	calibrate_gyro : thread task_types::cyclic 
 	{	
     	 Compute_Execution_Time => 6.91 ms;
@@ -49,6 +49,9 @@ connections
 	C5 : port calibrate_gyro.output -> output;
 properties
   Timing => immediate applies to C1, C2, C3, C4, C5;
+end gyro_process.impl;
 end yaw_gyro;
+
+
 
 
