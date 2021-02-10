@@ -30,12 +30,13 @@ connections
   C0 : port command_actuators.output -> reaction_wheels_t.input;
   -- connexion with telemetry
   C1 : port reaction_wheels_t.output -> output;
-  -- should protected object be considered ? 
+
 properties
   timing => immediate applies to C0, C1;
 end actuators_process.impl;
 
 end actuators;
+
 
 
 

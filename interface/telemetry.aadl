@@ -28,6 +28,7 @@ end echo_error;
 process telemetry_process
 features
 	input : in data port task_types::shared_data;
+	output : 
 end telemetry_process;
 
 process implementation telemetry_process.impl
@@ -41,7 +42,7 @@ subcomponents
     Compute_Execution_Time => 3.19 ms;
     Period => 62.5 ms;
     Deadline => 30 ms;
-    Priority => 15 ms;
+    Priority => 15;
     
    };
 
@@ -58,6 +59,7 @@ end telecomand_process.impl;
 
 
 end telemetry;
+
 
 
 

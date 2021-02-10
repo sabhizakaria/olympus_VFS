@@ -14,30 +14,24 @@ end control_law;
 process implementation control_law.impl
  subcomponents
  
-  a_data : data task_types::shared_data.impl;
+ 
   c_law : thread task_types::cyclic
   {
     Compute_Execution_Time => 52.8 ms;
     Period          => 200 ms;
     Deadline        => 200 ms;
-    Priority        => 8 ms;  
+    Priority        => 8;  
   };
 
 connections
    
-  C0 : port input -> control.input;
-  -- connection out with sensors
-  C1 : port control.output -> output;
-  -- connection out with telemetry
-  C2 : port control.output -> roll_2nd_order.input;
-  -- connection out with actuators
-  C3 : port control.output -> roll_1st_order.input;
-  
+  C0 : port control.output -> output;
 properties
-  timing => immediate applies to C0, C1, C2, C3, C4, C5, C6;
+  timing => immediate applies to C0;
 end control_law_process.impl;
 
 end control_law;
+
 
 
 

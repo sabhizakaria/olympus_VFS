@@ -15,7 +15,7 @@ end shared_data.impl;
 
 bus serial_bus
 features 
-	output : requires bus access serial_bus;
+	input : provides bus access serial_bus;
 properties
 	Compute_Execution_Time => 0.395 ms;
  	Priority => 22;
@@ -23,21 +23,15 @@ properties
 
 end serial_bus;
 
-bus serial_bus_ip
-features 
-	output : requires bus access serial_bus;
-properties
-	Compute_Execution_Time => 0.58 ms;
- 	Priority => 24;
-    	Concurrency_Control_Protocol => Priority_Ceiling;
-
-end serial_bus_ip;
 
 
 -- Types of tasks 
 
 
 thread cyclic
+features
+	input : in data port task_types::shared_data;
+ 	output : out data port task_types::shared_data;
 properties
   	Dispatch_Protocol => Periodic;
 end cyclic;
@@ -45,8 +39,8 @@ end cyclic;
 
 thread sporadic
 features
-  input : in data port shared_data;
-  output : out data port shared_data;
+	input : in data port task_types::shared_data;
+ 	output : out data port task_types::shared_data;
 properties
   	Dispatch_Protocol => Sporadic;
 end sporadic;
@@ -54,6 +48,7 @@ end sporadic;
 
 
 end thread_types;
+
 
 
 

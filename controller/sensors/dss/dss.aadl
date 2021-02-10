@@ -4,6 +4,15 @@ public
 -- system de du package
 	with task_types;	
 
+thread angle
+features
+  input : in data port task_types::shared_data;
+  output : out data port task_types::shared_data;
+properties
+  dispatch_Protocol => Aperiodic;
+  compute_Execution_Time => 0,67 ms;
+  Priority => 7;
+end angle;
 
 process dss_process
 features
@@ -11,6 +20,41 @@ features
 	output : in data port task_types::shared_data;
 end dss_process;
 
+process implementation dss_process.impl
+subcomponents
+	dss_angle : thread angle;
+	request_dss_data : thread task_types::cyclic 
+	{   
+    		Compute_Execution_Time => 8.21 ms;
+    		Period 		    => 200 ms;
+    		Deadline 	 	    => 17 ms;
+    		Priority 		    => 19 ;
+    		Dispatch_Offset => 150  ms;
+
+	};
+	process_dss_data : thread task_types::cyclic 
+	{   
+    		Compute_Execution_Time => 5.16 ms;
+    		Period 		    => 1000 ms;
+    		Deadline 	 	    => 400 ms;
+    		Priority 		    => 6 ;
+    		Dispatch_Offset => 200  ms;
+
+	};
+
+connection
+	C0 : port process_dss_data.output -> dss_angle.input; 
+	C1 : port request_dss_data.output -> output;
+	C2 : port process_dss_data.output -> output;
+	
+properties
+	Timing => immediate applies to C1, C2, C3, C4, C5, C6, C7, B1, B2;
+
+
+
+end dss_process.impl;
+
 end dss;
+
 
 

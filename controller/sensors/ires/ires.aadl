@@ -8,9 +8,42 @@ public
 process ires_process
 features
 	input : in data port task_types::shared_data;
-	output : in data port task_types::shared_data;
+ 	output : out data port task_types::shared_data;
 end ires_process;
 
+process implementation ires_process.impl
+subcomponents
+request_ires_data: thread task_types::sporadic 
+{   
+    Compute_Execution_Time => 1.43 ms;
+    Period 		    => 100 ms;
+    Deadline 	 	    => 24 ms;
+    Priority 		    => 17 ;
+    Dispatch_Offset => 0  ms;
+
+};
+process_ires_data: thread task_types::sporadic 
+{   
+    Compute_Execution_Time => 8.21 ms;
+    Period 		    => 100 ms;
+    Deadline 	 	    => 50 ms;
+    Priority 		    => 14 ;
+    Dispatch_Offset => 50  ms;
+
+};
+
+connections 
+   C1 : port request_ires_data.output -> output;
+   C2 : port process_ires_data.output -> output;
+
+properties 
+  Timing => immediate applies to C1, C2;
+
+
+
+end ires_process.impl;
+
 end ires;
+
 
 

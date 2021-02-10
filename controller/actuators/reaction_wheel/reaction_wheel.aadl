@@ -3,8 +3,16 @@ public
 -- declaration des fichiers sous-
 -- system de du package
 	with task_types;
---	with weel_demand;	
 	
+thread wheel
+features
+  input : in data port task_types::shared_data;
+  output : out data port task_types::shared_data;
+properties
+  dispatch_Protocol => Aperiodic;
+  compute_Execution_Time => 0.76 ms;
+  Priority => 21;
+end wheel;
 	
 
 process reaction_wheels_process
@@ -16,7 +24,7 @@ end reaction_wheels_process;
 process implementation reaction_wheels_process.impl
 subcomponents
 
-
+  wheel_command : thread wheel;
   request_wheel_speed : thread task_types::cyclic
   {
     Compute_Execution_Time => 1.43 ms; 
@@ -26,11 +34,15 @@ subcomponents
     Dispatch_offset => 0 ms;  
   };
 
+connections 
+   C0 : port request_wheel_speed.output -> output;
+   C1 : port wheel_command.output -> output;
 properties
-  timing => immediate applies to C0;
+  timing => immediate applies to C0,C1;
 end reaction_wheels_process.impl;
 
 end reaction_wheels;
+
 
 
 

@@ -21,7 +21,7 @@ subcomponents
     Compute_Execution_Time => 2.5 ms;
     Period => 187 ms;
     Deadline => 187 ms;
-    Priority => 4 ms
+    Priority => 4 ;
     
    }
 
@@ -36,5 +36,6 @@ end telecomand_process.impl;
 
 
 end interface;
+
 
 

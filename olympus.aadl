@@ -39,8 +39,7 @@ subcomponents
 	bus_io           : process bus_io::communication_process;			   
 
 connections
-	C0 : data a_data -> input ;
-	C1 : port input -> bus_io.input; 
+	C1 : port a_data -> bus_io.input; 
 	C2 : port bus_io.output -> telecommand_task.input; 
 	C3 : port bus_io.output -> telemetry_task.input;
 	C4 : port bus_io.output -> controller_task.input; 
@@ -48,12 +47,12 @@ connections
 	C6 : port telecommand_task.output -> telemetry_task.input;
 	C7 : port controller_task.output -> telemetry_task.input;
 
-	B1 : provides bus access controller_task.output -> serial_bus.output; 
-	B2 : provides bus access telemetry_task.output -> serial_bus.output; 	
+	B1 : requires bus access controller_task.output -> serial_bus.input; 
+	B2 : requires bus access telemetry_task.output -> serial_bus.input; 	
 	
 
 properties 
- 	Timing => immediate applies to C0, C1, C2, C3, C4, C5, C6, C7, B1, B2;
+ 	Timing => immediate applies to C1, C2, C3, C4, C5, C6, C7, B1, B2;
 end control_software.impl;
 
 
@@ -83,6 +82,7 @@ PROPERTIES
   Actual_Processor_Binding => ( reference(my_platform) ) applies to main;
 
 end control_olymp.impl
+
 
 
 

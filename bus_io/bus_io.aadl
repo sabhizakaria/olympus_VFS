@@ -4,11 +4,48 @@ public
 -- system de du package
 	with task_types;	
 
-process communication_process
+process receive_from_bus
 features
 	input : in data port task_types::shared_data;
 	output : in data port task_types::shared_data;
-end communication_process;
+end receive_from_bus;
+
+process implementation receive_from_bus.impl
+subcomponents
+	a_data : data task_types::shared_data;
+	bus_ip_fifo : bus task_types:serial_bus;
+	bus_interrupt : thread task_types:sporadic 
+	 {
+		Compute_Execution_Time => 0.18 ms; 
+    		Period => 0.96 ms;  
+    		Priority => 62
+    		Deadline => 0.63 ms;  
+    		
+	 };
+	read_bus_ip : thread task_types:cyclic;
+	{
+		Compute_Execution_Time => 1.76 ms; 
+    		Period => 10 ms;  
+    		Priority => 23;
+    		Deadline => 10 ms;  
+    		Dispatch_offset => 0 ms;  
+	};
+connections
+
+	C0 : a_data -> input;
+	C1 : input -> read_bus_ip.input;
+	C2 : input -> bus_interrupt.input;
+	C3 : read_bus_ip.output -> output;
+	
+	B1 : requires bus access read_bus_ip.output -> serial_bus.input;
+	B2 : requires bus access bus_interrupt -> serial_bus.input;
+
+properties
+	immediate applies to C1, C2, C3, B1, B2;
+
+end receive_from_bus.impl;
+
 
 end bus_io;
+
 
