@@ -2,7 +2,7 @@ package telemetry
 public 
 -- declaration des fichiers sous-
 -- system de du package
-	with task_types;	
+	with common::task_types::sporadic;	
 
 thread data_store
 features
@@ -59,6 +59,7 @@ end telecomand_process.impl;
 
 
 end telemetry;
+
 
 
 

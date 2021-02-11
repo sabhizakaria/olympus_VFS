@@ -20,7 +20,7 @@ end init;
 thread bus_ip
 features
   input : in data port task_types::shared_data;
-  output : out data port task_types::shared_data;
+  output : requires bus access task_types::serial_bus;
 properties
   dispatch_Protocol => Aperiodic;
   compute_Execution_Time => 0.58 ms;
@@ -56,8 +56,10 @@ subcomponents
 	initialisation : thread init;
 	equipment_status : thread status;
 	serial_bus : bus task_types::serial_bus_ip;
+	--a_data : data task_types::shared_data;
 
 connections 
+	
 	C0 : port input -> init.input;
 	C1 : port input -> sensor.input;
 	C2 : port control_law.output -> equipment_status.input;
@@ -69,22 +71,17 @@ connections
 	C8 : port actuator.output -> init.input;
 	C9 : port sensor.output -> t_bus_serial.input;
 	C10: port sensor.output -> init.input;
-	B1 : requires bus access t_bus_serial.output -> serial_bus.input; 
+	B1 : access t_bus_serial.output -> serial_bus.input; 
 
 properties 
  	Timing => immediate applies to C1, C2, C3, C4, C5, C6, C7, C8, C9, C10, B1;
-
-properties
-
-	
-		
-
 
 
 end controller_process.impl;
 
 
 end controller;
+
 
 
 

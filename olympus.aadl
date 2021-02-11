@@ -2,7 +2,7 @@ package olympus
 public 
 -- declaration des fichiers sous-
 -- system de du package
-	with task_types;	
+	with common::task_types;	
 	with controller;
 	with interface;
 	
@@ -28,7 +28,8 @@ thread serial_bus_op
 
 features
   input : in data port task_types::shared_data;
-  output : out data port task_types::shared_data;
+
+  output : requires bus access task_types::serial_bus;
 properties
   dispatch_Protocol => Aperiodic;
   ompute_Execution_Time => 0.06 ms;
@@ -40,13 +41,13 @@ end serial_bus_op;
 
 process implementation control_software.impl       
 subcomponents
-	a_data		 : data	   task_types::shared_data.impl
+	a_data		 : data	   task_types::shared_data.impl;
 	serial_bus 	     : bus task_types::serial_bus;
 	t_serial_bus_op	 : thread serial_bus_op;
-	controller_task  : process controller::controller_process;
-	telecommand_task : process interface::telecomand_process;
-	telemetry_task   : process interface::telemetry_process;
-	bus_io           : process bus_io::communication_process;			   
+	controller_task  : process controller::controller_process.impl;
+	telecommand_task : process interface::telecomand_process.impl;
+	telemetry_task   : process interface::telemetry_process.impl;
+	bus_io           : process bus_io::receive_from_bus.impl;			   
 
 connections
 	C1 : port a_data -> bus_io.input; 
@@ -59,7 +60,7 @@ connections
 	C8 : port controller_task.output -> t_serial_bus_op.input; 
 	C9 : port telemetry_task.output -> t_serial_bus_op.input;
 
-	B1 : requires bus access t_serial_bus_op.output -> serial_bus.input; 
+	B1 : access t_serial_bus_op.output -> serial_bus.input; 
 	
 
 properties 
@@ -87,12 +88,13 @@ END control_olymp;
 SYSTEM IMPLEMENTATION control_olymp.impl
 
 SUBCOMPONENTS
-  main : PROCESS control_software.impl
+  main : PROCESS control_software.impl;
   my_platform : PROCESSOR cpu;
 PROPERTIES
   Actual_Processor_Binding => ( reference(my_platform) ) applies to main;
 
-end control_olymp.impl
+end control_olymp.impl;
+end olympus;
 
 
 

@@ -5,7 +5,6 @@ public
 	with task_types;	
 
 
-
 process telecomand_process
 features
 	input : in data port task_types::shared_data;
@@ -15,7 +14,7 @@ end telecomand_process;
 process implementation telecomand_process.impl
 subcomponents
   
-  telemetry_task  : process telemetry::telemetry_task;
+  telemetry_task  : process telemetry::telemetry_process.impl;
   telecomand : thread task_types::sporadic
   {
     Compute_Execution_Time => 2.5 ms;
@@ -23,7 +22,7 @@ subcomponents
     Deadline => 187 ms;
     Priority => 4 ;
     
-   }
+   };
 
 connections
   C0 : port input -> telecomand.input;
@@ -36,6 +35,8 @@ end telecomand_process.impl;
 
 
 end interface;
+
+
 
 
 

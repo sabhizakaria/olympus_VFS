@@ -54,8 +54,6 @@ properties
   	Dispatch_Protocol => Periodic;
 end cyclic;
 
-
-
 thread sporadic
 features
 	input : in data port task_types::shared_data;
@@ -67,6 +65,7 @@ end sporadic;
 
 
 end thread_types;
+
 
 
 

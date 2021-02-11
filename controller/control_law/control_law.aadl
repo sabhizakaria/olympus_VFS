@@ -25,12 +25,14 @@ process implementation control_law.impl
 
 connections
    
-  C0 : port control.output -> output;
+  C0 : port c_law.output -> output;
 properties
   timing => immediate applies to C0;
 end control_law_process.impl;
 
 end control_law;
+
+
 
 
 

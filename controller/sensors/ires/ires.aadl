@@ -1,53 +1,47 @@
 package ires
-public 
--- declaration des fichiers sous-
--- system de du package
-	with task_types;	
-	
+public
+	with task_types;
+
+
 
 process ires_process
 features
 	input : in data port task_types::shared_data;
- 	output : out data port task_types::shared_data;
-end ires_process;
+	output: out data port task_types::shared_data;
+end ires_porcess ;
 
 process implementation ires_process.impl
 subcomponents
-	a_data : data task_types::shared_data;
-	request_ires_data: thread task_types::sporadic 
-	{   
-    	 Compute_Execution_Time => 1.43 ms;
-       	 Period 		    => 100 ms;
-      	 Deadline 	 	    => 24 ms;
-    	 Priority 		    => 17 ;
-    	 Dispatch_Offset    => 0  ms;
-
+	request: thread task_types::sporadic
+	{
+	 compute_Execution_time => 1.43 ms;
+	 period 			=> 100 ms;
+	 deadline			=> 24 ms;
+	 priority			=> 17;
 	};
-	process_ires_data: thread task_types::sporadic 
-	{   
-    	 Compute_Execution_Time => 8.21 ms;
-    	 Period 		    => 100 ms;
-    	 Deadline 	 	    => 50 ms;
-    	 Priority 		    => 14 ;
-    	 Dispatch_Offset => 50  ms;
+	process_data: thread sporadic
+	{
+	 compute_Execution_time => 8.21 ms;
+	 period 			=> 100 ms;
+	 deadline			=> 50 ms;
+	 priority			=> 14;
+	 dispatch_offset			=> 50 ms;	 
 	};
-
-
+	
 connections
-   C0 : port a_data -> input;
-   C1 : port input-> request_ires_data.input;
-   C2 : port a_data -> process_ires_data.input;
-   C3 : port request_ires_data.output -> output;
-   C4 : port process_ires_data.output -> output;
+   C1 : port input-> request.input;
+   C2 : port input -> process_data.input;
+   C3 : port request.output -> output;
+   C4 : port process_data.output -> output;
 
 properties 
-  Timing => immediate applies to C1, C2, C3, C4;
-
-
+  Timing => immediate applies to C0, C1, C2, C3, C4;
 
 end ires_process.impl;
 
 end ires;
+
+
 
 
 

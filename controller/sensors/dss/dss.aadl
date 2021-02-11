@@ -14,6 +14,7 @@ properties
   Priority => 7;
 end angle;
 
+
 process dss_process
 features
 	input : in data port task_types::shared_data;
@@ -32,7 +33,7 @@ subcomponents
     		Dispatch_Offset => 150  ms;
 
 	};
-	process_dss_data : thread task_types::cyclic 
+	process_dss_data : thread task_types::cyclic
 	{   
     		Compute_Execution_Time => 5.16 ms;
     		Period 		    => 1000 ms;
@@ -56,6 +57,8 @@ properties
 end dss_process.impl;
 
 end dss;
+
+
 
 
 
