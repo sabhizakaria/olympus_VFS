@@ -1,10 +1,5 @@
 package telemetry
 public 
--- declaration des fichiers sous-
--- system de du package
-	with task_types;	
-
-
 
 process telemetry_process
 features
@@ -20,8 +15,8 @@ subcomponents
   
   telemetry_response : thread task_types::sporadic
   {
-    Compute_Execution_Time => 3.19 ms;
-    Period => 62.5 ms;
+    Compute_Execution_Time => 3190 us;
+    Period => 62500 us;
     Deadline => 30 ms;
     Priority => 15;
    };
@@ -39,6 +34,7 @@ end telecomand_process.impl;
 
 
 end telemetry;
+
 
 
 

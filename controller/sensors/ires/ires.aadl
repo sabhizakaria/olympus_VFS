@@ -1,8 +1,5 @@
 package ires
 public
-	with task_types;
-
-
 
 process ires_process
 features
@@ -14,7 +11,7 @@ process implementation ires_process.impl
 subcomponents
 	request: thread task_types::sporadic
 	{
-	 compute_Execution_time => 1.43 ms;
+	 compute_Execution_time => 1430 us;
 	 period 			=> 100 ms;
 	 deadline			=> 24 ms;
 	 priority			=> 17;
@@ -22,7 +19,7 @@ subcomponents
 	};
 	process_data: thread task_types::sporadic
 	{
-	 compute_Execution_time => 8.21 ms;
+	 compute_Execution_time => 8210 us;
 	 period 			=> 100 ms;
 	 deadline			=> 50 ms;
 	 priority			=> 14;
@@ -42,6 +39,7 @@ properties
 end ires_process.impl;
 
 end ires;
+
 
 
 

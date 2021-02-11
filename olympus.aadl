@@ -1,22 +1,17 @@
 package olympus
 public 
--- declaration des fichiers sous-
--- system de du package
-	with actuators;
-  	with control_law;
-	with bus_io;
-  	with dss;
-  	with ires;
-  	with reaction_wheel;
-  	with sensors;
- 	with yaw_gyro;
-	with task_types;
-  	with controller;
-  	with telemetry;
-	with interface;
-	
-	
 
+	with actuators;
+	with bus_io;
+	with controller;
+	with sensors;
+	with ires;
+	with yaw_gyro;
+	with dss;
+	with task_types;
+	with reaction_wheel;
+	with interface;
+	with telemetry;
 
 ---------------
 -- Process-----
@@ -41,20 +36,18 @@ features
   output : requires bus access task_types::serial_bus;
 properties
   dispatch_Protocol => sporadic;
-  ompute_Execution_Time => 0.06 ms;
-  period => 0.06ms ;
+  ompute_Execution_Time => 60 us;
+  period => 60 us ;
   Priority => 36;
 end serial_bus_op;
 
 
-
-
 process implementation control_software.impl       
 subcomponents
-	a_data		 : data	   task_types::shared_data.impl;
+	a_data		 : data	task_types::shared_data.impl;
 	serial_bus 	     : bus task_types::serial_bus;
 	t_serial_bus_op	 : thread serial_bus_op;
-	controller_task  : process controller::controller_process.impl;
+	t_controller_task : process controller::controller_process.impl;
 	telecommand_task : process interface::telecomand_process.impl;
 	telemetry_task   : process telemetry::telemetry_process.impl;
 	bus_io           : process bus_io::receive_from_bus.impl;			   
@@ -63,11 +56,11 @@ connections
 	C1 : port a_data -> bus_io.input; 
 	C2 : port bus_io.output -> telecommand_task.input; 
 	C3 : port bus_io.output -> telemetry_task.input;
-	C4 : port bus_io.output -> controller_task.input; 
-	C5 : port telecommand_task.output -> controller_task.input; 
+	C4 : port bus_io.output -> t_controller_task.input; 
+	C5 : port telecommand_task.output -> t_controller_task.input; 
 	C6 : port telecommand_task.output -> telemetry_task.input;
-	C7 : port controller_task.output -> telemetry_task.input;
-	C8 : port controller_task.output -> t_serial_bus_op.input; 
+	C7 : port t_controller_task.output -> telemetry_task.input;
+	C8 : port t_controller_task.output -> t_serial_bus_op.input; 
 	C9 : port telemetry_task.output -> t_serial_bus_op.input;
 
 	B1 : access t_serial_bus_op.output -> serial_bus.input; 
@@ -84,7 +77,6 @@ end control_software.impl;
 
 processor cpu
 properties
-	
 	Scheduling_Protocol => (Posix_1003_Highest_Priority_First_Protocol);
 end cpu;
 
@@ -105,6 +97,7 @@ PROPERTIES
 
 end control_olymp.impl;
 end olympus;
+
 
 
 

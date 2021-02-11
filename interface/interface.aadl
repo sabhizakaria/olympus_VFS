@@ -1,9 +1,5 @@
 package interface
 public 
--- declaration des fichiers sous-
--- system de du package
-	with task_types;	
-
 
 process telecomand_process
 features
@@ -17,7 +13,7 @@ subcomponents
   telemetry_task  : process telemetry::telemetry_process.impl;
   telecomand : thread task_types::sporadic
   {
-    Compute_Execution_Time => 2.5 ms;
+    Compute_Execution_Time => 2500 us;
     Period 			=> 187 ms;
     Deadline 			=> 187 ms;
     Priority 			=> 4 ;
@@ -35,6 +31,7 @@ end telecomand_process.impl;
 
 
 end interface;
+
 
 
 

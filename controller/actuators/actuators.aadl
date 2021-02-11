@@ -1,9 +1,6 @@
 package actuators
 public 
--- declaration des fichiers sous-
--- system de du package
-	with task_types;	
-	with reaction_wheel;
+
 
 process actuators_process
 features
@@ -28,7 +25,7 @@ subcomponents
   t_command_actuators : thread task_types::cyclic
  
   {
-    Compute_Execution_Time => 2130 ms; 
+    Compute_Execution_Time => 2130 us; 
     Period => 200 ms;   
     Priority => 20;
     Deadline => 14 ms;  
@@ -48,6 +45,7 @@ properties
 end actuators_process.impl;
 
 end actuators;
+
 
 
 

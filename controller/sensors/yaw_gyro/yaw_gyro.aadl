@@ -1,8 +1,6 @@
 package yaw_gyro
 public 
--- declaration des fichiers sous-
--- system de du package
-	with task_types;	
+
 
 process gyro_process
 features
@@ -16,7 +14,7 @@ subcomponents
 	a_data		 : data	   task_types::shared_data;
 	calibrate_gyro : thread task_types::cyclic 
 	{	
-    	 Compute_Execution_Time => 6.91 ms;
+    	 Compute_Execution_Time => 6910 us;
     	 Period 		        => 1000 ms;
     	 Deadline 	 	        => 900 ms;
     	 Priority 		        => 5 ;
@@ -25,7 +23,7 @@ subcomponents
 	};
 	read_yaw_gyro : thread task_types::sporadic 
 	{	
-    	 Compute_Execution_Time => 6.91 ms;
+    	 Compute_Execution_Time => 6910 us;
     	 Period 		        => 1000 ms;
     	 Deadline 	 	        => 900 ms;
     	 Priority 		        => 5 ;
@@ -46,6 +44,7 @@ properties
   Timing => immediate applies to C1, C2, C3, C4, C5;
 end gyro_process.impl;
 end yaw_gyro;
+
 
 
 

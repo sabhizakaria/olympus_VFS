@@ -1,11 +1,5 @@
 package dss
 public 
--- declaration des fichiers sous-
--- system de du package
-	with task_types;	
-
-
-
 
 process dss_process
 features
@@ -18,7 +12,7 @@ subcomponents
 	dss_angle : thread task_types::aperiodic;
 	request_dss_data : thread task_types::cyclic 
 	{   
-    		Compute_Execution_Time => 8.21 ms;
+    		Compute_Execution_Time => 8210 us;
     		Period 		    => 200 ms;
     		Deadline 	 	    => 17 ms;
     		Priority 		    => 19 ;
@@ -28,7 +22,7 @@ subcomponents
 	};
 	process_dss_data : thread task_types::cyclic
 	{   
-    		Compute_Execution_Time => 5.16 ms;
+    		Compute_Execution_Time => 5160 us;
     		Period 		    => 1000 ms;
     		Deadline 	 	    => 400 ms;
     		Priority 		    => 6 ;
@@ -51,6 +45,7 @@ properties
 end dss_process.impl;
 
 end dss;
+
 
 
 

@@ -1,7 +1,8 @@
 package task_types
 public
-
--- Types of data / ressources
+---------------
+-- data -------
+---------------
 data shared_data
 end  shared_data;
 
@@ -36,14 +37,15 @@ bus serial_bus_ip
 features 
 	input : provides bus access serial_bus;
 properties
-	Compute_Execution_Time => 580 ms;
+	Compute_Execution_Time => 580 us;
  	Priority => 24;
     	Concurrency_Control_Protocol => Priority_Ceiling;
 
 end serial_bus_ip;
 
-
+------------------
 -- Types of tasks 
+------------------
 
 thread cyclic
 features
@@ -66,12 +68,14 @@ features
 	input : in data port task_types::shared_data;
  	output : out data port task_types::shared_data;
 properties
+	period 		  => 10 ms;
   	Dispatch_Protocol => sporadic;
 end sporadic;
 
 
 
 end task_types;
+
 
 
 

@@ -1,8 +1,6 @@
 package bus_io
 public 
--- declaration des fichiers sous-
--- system de du package
-	with common::task_types;	
+
 
 process receive_from_bus
 features
@@ -16,7 +14,8 @@ features
   output : requires bus access task_types::serial_bus;
 properties
   dispatch_Protocol => sporadic;
-  ompute_Execution_Time => 0.06 ms;
+  compute_Execution_Time => 60 us;
+  period 			=> 60 us;
   Priority => 36;
 end bus_fifo_ip;
 
@@ -28,15 +27,15 @@ subcomponents
 	bus_fifo : bus task_types::bus_ip_fifo;
 	bus_interrupt : thread task_types::sporadic 
 	 {
-		Compute_Execution_Time => 0.18 ms; 
-    		Period => 0.96 ms;  
+		Compute_Execution_Time => 180 us; 
+    		Period => 960 us;  
     		Priority => 62;
-    		Deadline => 0.63 ms;  
+    		Deadline => 630 us;  
     		
 	 };
 	read_bus_ip : thread task_types::cyclic
 	{
-		Compute_Execution_Time => 1.76 ms; 
+		Compute_Execution_Time => 1760 us; 
     		Period => 10 ms;  
     		Priority => 23;
     		Deadline => 10 ms;  
@@ -62,6 +61,7 @@ end receive_from_bus.impl;
 
 
 end bus_io;
+
 
 
 

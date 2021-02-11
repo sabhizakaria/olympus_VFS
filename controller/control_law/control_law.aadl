@@ -1,37 +1,32 @@
 package control_law
 public 
--- declaration des fichiers sous-
--- system de du package
-   with task_types;	
 
-process control_law
+process control_law_process
 features 
   input : in data port task_types::shared_data;
   output : out data port task_types::shared_data;
-end control_law;
+end control_law_process;
 
-
-process implementation control_law.impl
+process implementation control_law_process.impl
  subcomponents
- 
- 
-  c_law : thread task_types::cyclic
+
+  t_control_law: thread task_types::cyclic
   {
-    Compute_Execution_Time => 52800 us;
+    Compute_Execution_Time => 52900 us;
     Period          => 200 ms;
     Deadline        => 200 ms;
     Priority        => 8;  
-       
+    dispatch_offset => 50 ms;
   };
 
 connections
-   
-  C0 : port c_law.output -> output;
+  C1 : port t_control_law.output -> output;
 properties
-  timing => immediate applies to C0;
+  timing => immediate applies to C1;
 end control_law_process.impl;
 
 end control_law;
+
 
 
 
