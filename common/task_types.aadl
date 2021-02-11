@@ -51,7 +51,7 @@ features
 	input : in data port task_types::shared_data;
  	output : out data port task_types::shared_data;
 properties
-  	Dispatch_Protocol => Periodic;
+  	Dispatch_protocol => periodic;
 end cyclic;
 
 thread sporadic
@@ -59,12 +59,13 @@ features
 	input : in data port task_types::shared_data;
  	output : out data port task_types::shared_data;
 properties
-  	Dispatch_Protocol => Sporadic;
+  	Dispatch_Protocol => sporadic;
 end sporadic;
 
 
 
 end thread_types;
+
 
 
 

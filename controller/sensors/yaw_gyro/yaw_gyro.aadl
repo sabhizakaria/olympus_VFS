@@ -31,6 +31,7 @@ subcomponents
     	 Deadline 	 	        => 900 ms;
     	 Priority 		        => 5 ;
     	 Dispatch_Offset 			=> 200  ms;
+	 Dispatch_Protocol 			=> periodic;
 	};
 	read_yaw_gyro : thread task_types::sporadic 
 	{	
@@ -39,6 +40,7 @@ subcomponents
     	 Deadline 	 	        => 900 ms;
     	 Priority 		        => 5 ;
     	 Dispatch_Offset 			=> 200  ms;
+	 Dispatch_Protocol 			=> periodic;
 	};
 	gyro_stat_imp : thread gyro_state ;
 

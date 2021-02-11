@@ -41,7 +41,8 @@ subcomponents
     Period => 200 ms;   
     Priority => 20;
     Deadline => 14 ms;  
-    Dispatch_offset => 50 ms; 
+    Dispatch_offset => 50 ms;
+    Dispatch_Protocol 			=> periodic;
   };
 
 connections 

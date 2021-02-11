@@ -31,6 +31,7 @@ subcomponents
     		Deadline 	 	    => 17 ms;
     		Priority 		    => 19 ;
     		Dispatch_Offset => 150  ms;
+		Dispatch_Protocol 			=> periodic;
 
 	};
 	process_dss_data : thread task_types::cyclic
@@ -40,6 +41,7 @@ subcomponents
     		Deadline 	 	    => 400 ms;
     		Priority 		    => 6 ;
     		Dispatch_Offset => 200  ms;
+		Dispatch_Protocol 			=> periodic;
 
 	};
 

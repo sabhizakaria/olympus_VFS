@@ -18,10 +18,10 @@ subcomponents
   telecomand : thread task_types::sporadic
   {
     Compute_Execution_Time => 2.5 ms;
-    Period => 187 ms;
-    Deadline => 187 ms;
-    Priority => 4 ;
-    
+    Period 			=> 187 ms;
+    Deadline 			=> 187 ms;
+    Priority 			=> 4 ;
+    Dispatch_Protocol 		=> sporadic;
    };
 
 connections
