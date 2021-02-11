@@ -15,7 +15,7 @@ features
   input : in data port task_types::shared_data;
   output : requires bus access task_types::serial_bus;
 properties
-  dispatch_Protocol => Aperiodic;
+  dispatch_Protocol => sporadic;
   ompute_Execution_Time => 0.06 ms;
   Priority => 36;
 end bus_fifo_ip;
@@ -32,7 +32,7 @@ subcomponents
     		Period => 0.96 ms;  
     		Priority => 62;
     		Deadline => 0.63 ms;  
-    		Dispatch_Protocol => sporadic;
+    		
 	 };
 	read_bus_ip : thread task_types::cyclic
 	{
@@ -41,7 +41,7 @@ subcomponents
     		Priority => 23;
     		Deadline => 10 ms;  
     		Dispatch_offset => 0 ms;  
-		Dispatch_Protocol => periodic;
+		
 	};
 connections
 	

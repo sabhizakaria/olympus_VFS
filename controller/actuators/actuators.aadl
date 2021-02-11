@@ -13,16 +13,7 @@ end actuators_process;
 
 
 
-thread thruster
 
-features
-  input : in data port task_types::shared_data;
-  output : out data port task_types::shared_data;
-properties
-  dispatch_Protocol => Aperiodic;
-  ompute_Execution_Time => 0.78 ms;
-  Priority => 21;
-end thruster;
 
 process actuators_process
 features
@@ -32,17 +23,17 @@ end actuators_process;
 
 process implementation actuators_process.impl
 subcomponents
-  p_reaction_wheels : process reaction_wheels::reaction_wheels_process.impl;
-  t_thruster		  : thread thruster;
+  p_reaction_wheels : process reaction_wheel::reaction_wheels_process.impl;
+  t_thruster		  : thread task_types::aperiodic;
   t_command_actuators : thread task_types::cyclic
  
   {
-    Compute_Execution_Time => 2.13 ms; 
+    Compute_Execution_Time => 2130 ms; 
     Period => 200 ms;   
     Priority => 20;
     Deadline => 14 ms;  
     Dispatch_offset => 50 ms;
-    Dispatch_Protocol 			=> periodic;
+    
   };
 
 connections 

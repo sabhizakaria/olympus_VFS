@@ -9,16 +9,6 @@ features
 	input : in data port task_types::shared_data;
 	output : in data port task_types::shared_data;
 end gyro_process;
-
-thread gyro_state
-features
-  input : in data port task_types::shared_data;
-  output : out data port task_types::shared_data;
-properties
-  dispatch_Protocol => Aperiodic;
-  compute_Execution_Time => 1.38 ms;
-  Priority => 13;
-end gyro_state;
 	
 
 process implementation gyro_process.impl
@@ -31,7 +21,7 @@ subcomponents
     	 Deadline 	 	        => 900 ms;
     	 Priority 		        => 5 ;
     	 Dispatch_Offset 			=> 200  ms;
-	 Dispatch_Protocol 			=> periodic;
+	 
 	};
 	read_yaw_gyro : thread task_types::sporadic 
 	{	
@@ -40,9 +30,9 @@ subcomponents
     	 Deadline 	 	        => 900 ms;
     	 Priority 		        => 5 ;
     	 Dispatch_Offset 			=> 200  ms;
-	 Dispatch_Protocol 			=> periodic;
+	 
 	};
-	gyro_stat_imp : thread gyro_state ;
+	gyro_stat_imp : thread task_types::aperiodic ;
 
 
 connections

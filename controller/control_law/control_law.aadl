@@ -17,12 +17,11 @@ process implementation control_law.impl
  
   c_law : thread task_types::cyclic
   {
-    Compute_Execution_Time => 52.8 ms;
+    Compute_Execution_Time => 52800 us;
     Period          => 200 ms;
     Deadline        => 200 ms;
     Priority        => 8;  
-    Dispatch_Protocol => periodic;
-    
+       
   };
 
 connections

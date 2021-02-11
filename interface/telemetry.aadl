@@ -2,28 +2,9 @@ package telemetry
 public 
 -- declaration des fichiers sous-
 -- system de du package
-	with common::task_types::sporadic;	
+	with task_types;	
 
-thread data_store
-features
-  input : in data port task_types::shared_data;
-  output : out data port task_types::shared_data;
-properties
-  dispatch_Protocol => Aperiodic;
-  compute_Execution_Time => 1.37 ms;
-  Priority => 24;
-end data_store;
 
-thread echo_error
-
-features
-  input : in data port task_types::shared_data;
-  output : out data port task_types::shared_data;
-properties
-  dispatch_Protocol => Aperiodic;
-  ompute_Execution_Time => 0.30 ms;
-  Priority => 25;
-end echo_error;
 
 process telemetry_process
 features
@@ -34,8 +15,8 @@ end telemetry_process;
 process implementation telemetry_process.impl
 subcomponents
   a_data 	         : data task_types::shared_data.impl;
-  data_store 		   : thread data_store;
-  echo_error	      : thread echo_error;
+  data_store 		   : thread task_types::aperiodic;
+  echo_error	      : thread task_types::aperiodic;
   
   telemetry_response : thread task_types::sporadic
   {
@@ -43,7 +24,6 @@ subcomponents
     Period => 62.5 ms;
     Deadline => 30 ms;
     Priority => 15;
-    Dispatch_Protocol 			=> sporadic;
    };
 
 connections

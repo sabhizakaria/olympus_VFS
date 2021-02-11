@@ -1,4 +1,4 @@
-package thread_types
+package task_types
 public
 
 -- Types of data / ressources
@@ -16,7 +16,7 @@ bus bus_ip_fifo
 features 
 	input : provides bus access bus_ip_fifo;
 properties
-	Compute_Execution_Time => 0.06 ms;
+	Compute_Execution_Time => 60 us;
  	Priority => 36;
     	Concurrency_Control_Protocol => Priority_Ceiling;
 
@@ -26,7 +26,7 @@ bus serial_bus
 features 
 	input : provides bus access serial_bus;
 properties
-	Compute_Execution_Time => 0.395 ms;
+	Compute_Execution_Time => 395 us;
  	Priority => 22;
     	Concurrency_Control_Protocol => Priority_Ceiling;
 
@@ -36,7 +36,7 @@ bus serial_bus_ip
 features 
 	input : provides bus access serial_bus;
 properties
-	Compute_Execution_Time => 0.58 ms;
+	Compute_Execution_Time => 580 ms;
  	Priority => 24;
     	Concurrency_Control_Protocol => Priority_Ceiling;
 
@@ -44,7 +44,6 @@ end serial_bus_ip;
 
 
 -- Types of tasks 
-
 
 thread cyclic
 features
@@ -62,9 +61,17 @@ properties
   	Dispatch_Protocol => sporadic;
 end sporadic;
 
+thread aperiodic
+features
+	input : in data port task_types::shared_data;
+ 	output : out data port task_types::shared_data;
+properties
+  	Dispatch_Protocol => sporadic;
+end sporadic;
 
 
-end thread_types;
+
+end task_types;
 
 
 

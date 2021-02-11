@@ -4,16 +4,6 @@ public
 -- system de du package
 	with task_types;
 	
-thread wheel
-features
-  input : in data port task_types::shared_data;
-  output : out data port task_types::shared_data;
-properties
-  dispatch_Protocol => Aperiodic;
-  compute_Execution_Time => 0.76 ms;
-  Priority => 21;
-end wheel;
-	
 
 process reaction_wheels_process
 features
@@ -24,15 +14,15 @@ end reaction_wheels_process;
 process implementation reaction_wheels_process.impl
 subcomponents
 
-  wheel_command : thread wheel;
+  wheel_command : thread task_types::aperiodic;
   request_wheel_speed : thread task_types::cyclic  
   {
-    Compute_Execution_Time => 1.43 ms; 
+    Compute_Execution_Time => 1430 ms; 
     Period => 200 ms;  
     Priority => 18;
     Deadline => 22 ms;  
     Dispatch_offset => 0 ms; 
-    Dispatch_Protocol 			=> periodic; 
+   
   };
 
 connections 

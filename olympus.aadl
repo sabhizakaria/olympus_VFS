@@ -2,9 +2,19 @@ package olympus
 public 
 -- declaration des fichiers sous-
 -- system de du package
-	with common::task_types;	
-	with controller;
+	with actuators;
+  	with control_law;
+	with bus_io;
+  	with dss;
+  	with ires;
+  	with reaction_wheel;
+  	with sensors;
+ 	with yaw_gyro;
+	with task_types;
+  	with controller;
+  	with telemetry;
 	with interface;
+	
 	
 
 
@@ -28,11 +38,11 @@ thread serial_bus_op
 
 features
   input : in data port task_types::shared_data;
-
   output : requires bus access task_types::serial_bus;
 properties
-  dispatch_Protocol => Aperiodic;
+  dispatch_Protocol => sporadic;
   ompute_Execution_Time => 0.06 ms;
+  period => 0.06ms ;
   Priority => 36;
 end serial_bus_op;
 
@@ -46,7 +56,7 @@ subcomponents
 	t_serial_bus_op	 : thread serial_bus_op;
 	controller_task  : process controller::controller_process.impl;
 	telecommand_task : process interface::telecomand_process.impl;
-	telemetry_task   : process interface::telemetry_process.impl;
+	telemetry_task   : process telemetry::telemetry_process.impl;
 	bus_io           : process bus_io::receive_from_bus.impl;			   
 
 connections

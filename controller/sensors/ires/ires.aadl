@@ -18,16 +18,16 @@ subcomponents
 	 period 			=> 100 ms;
 	 deadline			=> 24 ms;
 	 priority			=> 17;
-	 Dispatch_Protocol => sporadic;
+	 
 	};
-	process_data: thread sporadic
+	process_data: thread task_types::sporadic
 	{
 	 compute_Execution_time => 8.21 ms;
 	 period 			=> 100 ms;
 	 deadline			=> 50 ms;
 	 priority			=> 14;
 	 dispatch_offset			=> 50 ms;
-	 Dispatch_Protocol => sporadic;	 
+	 
 	};
 	
 connections

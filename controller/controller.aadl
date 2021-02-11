@@ -7,44 +7,21 @@ public
 	with control_law;
 	with actuators;
 
-thread init
-features
-  input : in data port task_types::shared_data;
-  output : out data port task_types::shared_data;
-properties
-  dispatch_Protocol => Aperiodic;
-  compute_Execution_Time => 0.63 ms;
-  Priority => 27;
-end init;
-
 thread bus_ip
 features
   input : in data port task_types::shared_data;
   output : requires bus access task_types::serial_bus;
 properties
-  dispatch_Protocol => Aperiodic;
-  compute_Execution_Time => 0.58 ms;
+  dispatch_Protocol => sporadic;
+  compute_Execution_Time => 580 ms;
   Priority => 24;
 end bus_ip;
-
-
-thread status
-features
-  input : in data port task_types::shared_data;
-  output : out data port task_types::shared_data;
-properties
-  dispatch_Protocol => Aperiodic;
-  compute_Execution_Time => 0.13 ms;
-  Priority => 11;
-end status;
-
-
 
 
 process controller_process
 features
 	input : in data port task_types::shared_data;
-	output : requires bus access task_types::serial_bus;
+	output : out data port task_types::shared_data;
 end controller_process;
 
 process implementation controller_process.impl
@@ -52,25 +29,25 @@ subcomponents
 	control_law : process control_law::control_law.impl; 
 	actuator 	  : process actuators::actuators_process.impl;
 	sensor   	  : process sensors::sensor_process.impl;
-	t_bus_serial 	: bus task_types::serial_bus_ip;
-	initialisation : thread init;
-	equipment_status : thread status;
+	t_bus_serial 	: thread bus_ip;
+	initialisation : thread task_types::aperiodic;
+	equipment_status : thread task_types::aperiodic;
 	serial_bus : bus task_types::serial_bus_ip;
-	--a_data : data task_types::shared_data;
+	
 
 connections 
 	
-	C0 : port input -> init.input;
+	C0 : port input -> initialisation.input;
 	C1 : port input -> sensor.input;
 	C2 : port control_law.output -> equipment_status.input;
 	C3 : port control_law.output -> actuator.input;
-	C4 : port control_law.output -> init.input;
+	C4 : port control_law.output -> initialisation.input;
 	C5 : port control_law.output -> sensor.input;
 	C6 : port actuator.output -> t_bus_serial.input;
 	C7 : port actuator.output -> equipment_status.input;
-	C8 : port actuator.output -> init.input;
+	C8 : port actuator.output -> initialisation.input;
 	C9 : port sensor.output -> t_bus_serial.input;
-	C10: port sensor.output -> init.input;
+	C10: port sensor.output -> initialisation.input;
 	B1 : access t_bus_serial.output -> serial_bus.input; 
 
 properties 
