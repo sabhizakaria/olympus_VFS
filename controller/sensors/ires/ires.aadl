@@ -1,15 +1,15 @@
 package ires
 public
 
-process ires_process
+thread group ires_process
 features
 	input : in data port task_types::shared_data;
 	output: out data port task_types::shared_data;
 end ires_porcess ;
 
-process implementation ires_process.impl
+thread group implementation ires_process.impl
 subcomponents
-	request: thread task_types::sporadic
+	request_data: thread task_types::sporadic
 	{
 	 compute_Execution_time => 1430 us;
 	 period 			=> 100 ms;
@@ -28,9 +28,9 @@ subcomponents
 	};
 	
 connections
-   C1 : port input-> request.input;
+   C1 : port input-> request_data.input;
    C2 : port input -> process_data.input;
-   C3 : port request.output -> output;
+   C3 : port request_data.output -> output;
    C4 : port process_data.output -> output;
 
 properties 
@@ -39,6 +39,7 @@ properties
 end ires_process.impl;
 
 end ires;
+
 
 
 

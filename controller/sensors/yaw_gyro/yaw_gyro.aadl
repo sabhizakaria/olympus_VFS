@@ -2,14 +2,14 @@ package yaw_gyro
 public 
 
 
-process gyro_process
+thread group gyro_process
 features
 	input : in data port task_types::shared_data;
 	output : in data port task_types::shared_data;
 end gyro_process;
 	
 
-process implementation gyro_process.impl
+thread group implementation gyro_process.impl
 subcomponents 
 	a_data		 : data	   task_types::shared_data;
 	calibrate_gyro : thread task_types::cyclic 
@@ -44,6 +44,7 @@ properties
   Timing => immediate applies to C1, C2, C3, C4, C5;
 end gyro_process.impl;
 end yaw_gyro;
+
 
 
 

@@ -12,15 +12,15 @@ end actuators_process;
 
 
 
-process actuators_process
+thread group actuators_process
 features
 	input : in data port task_types::shared_data;
  	output : out data port task_types::shared_data;
 end actuators_process;
 
-process implementation actuators_process.impl
+thread group implementation actuators_process.impl
 subcomponents
-  p_reaction_wheels : process reaction_wheel::reaction_wheels_process.impl;
+  p_reaction_wheels : thread group reaction_wheel::reaction_wheels_process.impl;
   t_thruster		  : thread task_types::aperiodic;
   t_command_actuators : thread task_types::cyclic
  
@@ -45,6 +45,7 @@ properties
 end actuators_process.impl;
 
 end actuators;
+
 
 
 

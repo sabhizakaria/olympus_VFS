@@ -7,7 +7,8 @@ features
   output : out data port task_types::shared_data;
 end reaction_wheels_process;
 
-process implementation reaction_wheels_process.impl
+
+thread group implementation reaction_wheels_process.impl
 subcomponents
 
   wheel_command : thread task_types::aperiodic;
@@ -30,6 +31,8 @@ properties
 end reaction_wheels_process.impl;
 
 end reaction_wheels;
+
+
 
 
 

@@ -2,13 +2,13 @@ package bus_io
 public 
 
 
-process receive_from_bus
+Thread group  receive_from_bus
 features
 	input : in data port task_types::shared_data;
 	output : in data port task_types::shared_data;
 end receive_from_bus;
 
-thread bus_fifo_ip
+Thread group  bus_fifo_ip
 features
   input : in data port task_types::shared_data;
   output : requires bus access task_types::serial_bus;
@@ -20,9 +20,9 @@ properties
 end bus_fifo_ip;
 
 
-process implementation receive_from_bus.impl
+Thread group implementation receive_from_bus.impl
 subcomponents
-	--a_data : data task_types::shared_data;
+	a_data : data task_types::shared_data;
 	t_bus_fifo : thread bus_fifo_ip;
 	bus_fifo : bus task_types::bus_ip_fifo;
 	bus_interrupt : thread task_types::sporadic 
@@ -43,7 +43,7 @@ subcomponents
 		
 	};
 connections
-	
+	C0 : port a_data -> input;
 	C1 : port input -> read_bus_ip.input;
 	C2 : port input -> bus_interrupt.input;
 	C3 : port read_bus_ip.output -> t_bus_fifo.input;
@@ -55,15 +55,10 @@ connections
 	
 
 properties
-	Timing => immediate applies to C1, C2, C3, C4, C5, C6, B1;
+	Timing => immediate applies to C0, C1, C2, C3, C4, C5, C6, B1;
 
 end receive_from_bus.impl;
 
 
 end bus_io;
-
-
-
-
-
 

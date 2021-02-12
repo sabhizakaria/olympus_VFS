@@ -17,14 +17,20 @@ properties
 end bus_ip;
 
 
-process controller_process
+thread group controller_process
 features
 	input : in data port task_types::shared_data;
 	output : out data port task_types::shared_data;
 end controller_process;
 
-process implementation controller_process.impl
+thread group implementation controller_process.impl
 subcomponents
+	t_actuator 	  : Thread group  actuators::actuators_process.impl;
+	t_sensor   	  : Thread group  sensors::sensor_process.impl;
+	t_bus_serial 	: thread bus_ip;
+	initialisation : thread task_types::aperiodic;
+	equipment_status : thread task_types::aperiodic;
+	serial_bus : bus task_types::serial_bus_ip;
 	
 	t_control : thread task_types::cyclic
   	{
@@ -35,12 +41,7 @@ subcomponents
     	 dispatch_offset => 50 ms;
   	};
 	
-	t_actuator 	  : process actuators::actuators_process.impl;
-	t_sensor   	  : process sensors::sensor_process.impl;
-	t_bus_serial 	: thread bus_ip;
-	initialisation : thread task_types::aperiodic;
-	equipment_status : thread task_types::aperiodic;
-	serial_bus : bus task_types::serial_bus_ip;
+	
 	
 
 connections 
@@ -66,6 +67,7 @@ end controller_process.impl;
 
 
 end controller;
+
 
 
 

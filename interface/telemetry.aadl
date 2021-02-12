@@ -7,7 +7,7 @@ features
 	output : out data port task_types::shared_data;
 end telemetry_process;
 
-process implementation telemetry_process.impl
+thread group implementation telemetry_process.impl
 subcomponents
   a_data 	         : data task_types::shared_data.impl;
   data_store 		   : thread task_types::aperiodic;
@@ -22,18 +22,18 @@ subcomponents
    };
 
 connections
-  C0 : port a_data -> input;
   C1 : port input -> data_store.input;
   C2 : port input -> echo_error.input;
   C3 : port data_store.output    -> echo_error.input;
 
 properties
-  Timing => immediate applies to C0, C1, C2, C3; 
+  Timing => immediate applies to  C1, C2, C3; 
 
 end telecomand_process.impl;
 
 
 end telemetry;
+
 
 
 

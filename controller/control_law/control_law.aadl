@@ -1,13 +1,13 @@
 package control_law
 public 
 
-process control_law_process
+thread group control_law_process
 features 
   input : in data port task_types::shared_data;
   output : out data port task_types::shared_data;
 end control_law_process;
 
-process implementation control_law_process.impl
+thread group implementation control_law_process.impl
  subcomponents
 
   t_control_law: thread task_types::cyclic
@@ -26,6 +26,7 @@ properties
 end control_law_process.impl;
 
 end control_law;
+
 
 
 

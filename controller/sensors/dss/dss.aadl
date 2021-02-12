@@ -1,13 +1,13 @@
 package dss
 public 
 
-process dss_process
+thread group dss_process
 features
 	input : in data port task_types::shared_data;
 	output : in data port task_types::shared_data;
 end dss_process;
 
-process implementation dss_process.impl
+thread group implementation dss_process.impl
 subcomponents
 	dss_angle : thread task_types::aperiodic;
 	request_dss_data : thread task_types::cyclic 
@@ -45,6 +45,7 @@ properties
 end dss_process.impl;
 
 end dss;
+
 
 
 

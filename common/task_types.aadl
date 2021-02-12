@@ -20,6 +20,7 @@ properties
 	Compute_Execution_Time => 60 us;
  	Priority => 36;
     	Concurrency_Control_Protocol => Priority_Ceiling;
+	period => 60 us;
 
 end bus_ip_fifo;
 
@@ -30,6 +31,7 @@ properties
 	Compute_Execution_Time => 395 us;
  	Priority => 22;
     	Concurrency_Control_Protocol => Priority_Ceiling;
+	period => 395 us;
 
 end serial_bus;
 
@@ -40,6 +42,7 @@ properties
 	Compute_Execution_Time => 580 us;
  	Priority => 24;
     	Concurrency_Control_Protocol => Priority_Ceiling;
+	period => 580 us;
 
 end serial_bus_ip;
 
@@ -68,13 +71,15 @@ features
 	input : in data port task_types::shared_data;
  	output : out data port task_types::shared_data;
 properties
-	period 		  => 10 ms;
+	period 		  => 139 ms;
   	Dispatch_Protocol => sporadic;
 end sporadic;
 
 
 
 end task_types;
+
+
 
 
 
