@@ -72,7 +72,7 @@ features
  	output : out data port task_types::shared_data;
 properties
 	period 		  => 139 ms;
-  	Dispatch_Protocol => backgournd;
+  	Dispatch_Protocol => sporadic;
 end sporadic;
 
 
