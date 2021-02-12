@@ -85,7 +85,7 @@ SUBCOMPONENTS
   cpu1 : PROCESSOR cpu;
 PROPERTIES
 
-  Actual_Processor_Binding => ( reference(cpu) ) applies to p1;
+  Actual_Processor_Binding => ( reference(cpu1) ) applies to p1;
 
 
 end control_olymp.impl;
